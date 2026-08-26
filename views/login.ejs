@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In · CloudNotes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+
+    <!-- Decorative branding panel (hidden on small screens) -->
+    <div class="auth-panel">
+      <div class="note-stack" aria-hidden="true">
+        <div class="stack-card stack-card--1"></div>
+        <div class="stack-card stack-card--4"></div>
+        <div class="stack-card stack-card--2"></div>
+        <div class="stack-card stack-card--3"></div>
+      </div>
+      <div class="brand-content">
+        <div class="brand-logo"><i class="bi bi-journal-text"></i> CloudNotes</div>
+        <h1>Welcome back to your notes.</h1>
+        <p>A simple, secure place to capture what matters. Log in to pick up right where you left off.</p>
+      </div>
+    </div>
+
+    <!-- Login form -->
+    <div class="auth-form-panel">
+      <div class="auth-form-card">
+        <div class="mobile-brand"><i class="bi bi-journal-text"></i> CloudNotes</div>
+
+        <h2>Log in</h2>
+        <p class="auth-subtitle">Enter your details to access your notes.</p>
+
+        <% if (registered) { %>
+          <div class="alert alert-success alert-auto-dismiss mb-4" role="alert">
+            <i class="bi bi-check-circle-fill me-1"></i> Account created. Please log in.
+          </div>
+        <% } %>
+
+        <% if (error) { %>
+          <div class="alert alert-danger mb-4" role="alert">
+            <i class="bi bi-exclamation-circle-fill me-1"></i> <%= error %>
+          </div>
+        <% } %>
+
+        <form action="/login" method="POST" novalidate>
+          <div class="mb-3">
+            <label for="user_id" class="form-label">User ID</label>
+            <div class="input-icon-group">
+              <i class="bi bi-person"></i>
+              <input
+                type="text"
+                class="form-control"
+                id="user_id"
+                name="user_id"
+                placeholder="Enter your User ID"
+                autocomplete="username"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-icon-group">
+              <i class="bi bi-lock"></i>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              >
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Log In</button>
+        </form>
+
+        <p class="auth-switch">Don't have an account? <a href="/register">Create one</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+</html>

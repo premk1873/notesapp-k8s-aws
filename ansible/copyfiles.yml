@@ -1,0 +1,21 @@
+- name: Copy Kubernetes manifests to control node
+  hosts: controlnode
+  become: yes
+
+  tasks:
+
+    - name: Create k8s directory
+      file:
+        path: /home/ubuntu/k8s
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+
+    - name: Copy Kubernetes manifest files
+      copy:
+        src: ../k8s/
+        dest: /home/ubuntu/k8s/
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'

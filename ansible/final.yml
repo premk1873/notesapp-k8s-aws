@@ -1,0 +1,17 @@
+- name: Update and prep all Kubernetes nodes
+  hosts: all
+  become: true
+  roles:
+    - system_update
+
+- name: Configure control plane node
+  hosts: controlnode
+  become: true
+  roles:
+    - control_plane
+
+- name: Configure worker node(s)
+  hosts: workernode
+  become: true
+  roles:
+    - worker_node

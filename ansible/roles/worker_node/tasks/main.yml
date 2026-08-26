@@ -1,0 +1,21 @@
+- name: Check if node has already joined the cluster
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: kubelet_conf_check
+
+- name: Copy join command to worker node
+  copy:
+    src: /tmp/kubeadm_join_command.sh
+    dest: /tmp/kubeadm_join_command.sh
+    mode: '0755'
+  when: not kubelet_conf_check.stat.exists
+
+- name: Run kubeadm join
+  command: bash /tmp/kubeadm_join_command.sh
+  when: not kubelet_conf_check.stat.exists
+  register: join_output
+
+- name: Show join result
+  debug:
+    var: join_output.stdout
+  when: join_output is defined and join_output.stdout is defined

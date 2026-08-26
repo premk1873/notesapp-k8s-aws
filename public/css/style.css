@@ -1,0 +1,515 @@
+/* ==========================================================
+   CloudNotes — Stylesheet
+   A clean blue & white theme layered on top of Bootstrap 5.
+   ========================================================== */
+
+:root {
+  --primary: #2f6fed;
+  --primary-dark: #1b4fcb;
+  --primary-darker: #123a9e;
+  --primary-light: #e8f0fe;
+  --navy: #101b3f;
+  --text: #3a4460;
+  --text-muted: #8791a8;
+  --bg: #f4f7fe;
+  --surface: #ffffff;
+  --border: #e3e9f7;
+  --danger: #e5484d;
+  --danger-light: #fdeeee;
+  --success: #1fae7a;
+  --success-light: #e8f9f2;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 2px 8px rgba(16, 27, 63, 0.06);
+  --shadow-md: 0 10px 30px rgba(16, 27, 63, 0.09);
+  --shadow-lg: 0 20px 45px rgba(16, 27, 63, 0.16);
+  --transition: 180ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--navy);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+::selection {
+  background: var(--primary-light);
+  color: var(--primary-darker);
+}
+
+/* Visible, on-brand keyboard focus everywhere — never removed, only restyled */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(47, 111, 237, 0.35);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------------------------
+   Buttons
+   ---------------------------------------------------------- */
+.btn {
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.65rem 1.5rem;
+  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition), color var(--transition);
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  box-shadow: 0 8px 20px rgba(47, 111, 237, 0.28);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(47, 111, 237, 0.34);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline-light,
+.btn-secondary {
+  background-color: var(--surface);
+  color: var(--primary);
+  border: 1.5px solid var(--border);
+}
+
+.btn-outline-light:hover,
+.btn-secondary:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-danger-soft {
+  background-color: var(--danger-light);
+  color: var(--danger);
+  border: 1.5px solid transparent;
+}
+
+.btn-danger-soft:hover {
+  background-color: var(--danger);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-sm-icon {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+/* ----------------------------------------------------------
+   Form controls
+   ---------------------------------------------------------- */
+.form-label {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.form-control {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1rem;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  background-color: var(--surface);
+  box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.12);
+}
+
+.input-icon-group {
+  position: relative;
+}
+
+.input-icon-group .bi {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.input-icon-group .form-control {
+  padding-left: 2.75rem;
+}
+
+/* ----------------------------------------------------------
+   Alerts
+   ---------------------------------------------------------- */
+.alert {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.1rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.alert-danger {
+  background-color: var(--danger-light);
+  color: var(--danger);
+}
+
+.alert-success {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+/* ==========================================================
+   Auth pages (Login / Register)
+   ========================================================== */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+}
+
+.auth-panel {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: none;
+  background: linear-gradient(155deg, var(--primary) 0%, var(--primary-darker) 100%);
+  color: #fff;
+  padding: 3rem;
+}
+
+.auth-panel .brand-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 420px;
+}
+
+.auth-panel .brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+}
+
+.auth-panel h1 {
+  color: #fff;
+  font-size: 2.1rem;
+  margin-bottom: 1rem;
+}
+
+.auth-panel p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+/* Decorative scattered "note card" shapes — a nod to what the app stores */
+.note-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.stack-card {
+  position: absolute;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(2px);
+}
+
+.stack-card--1 { width: 190px; height: 130px; top: 10%; left: 10%; transform: rotate(-9deg); }
+.stack-card--2 { width: 150px; height: 105px; bottom: 16%; right: 8%; transform: rotate(11deg); background: rgba(255, 255, 255, 0.14); }
+.stack-card--3 { width: 130px; height: 95px; bottom: 26%; left: 22%; transform: rotate(-5deg); background: rgba(255, 255, 255, 0.07); }
+.stack-card--4 { width: 90px; height: 90px; top: 14%; right: 16%; border-radius: 50%; transform: rotate(0deg); background: rgba(255, 255, 255, 0.08); }
+
+.auth-form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+}
+
+.auth-form-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-form-card .mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin-bottom: 2rem;
+}
+
+.auth-form-card .mobile-brand .bi {
+  color: var(--primary);
+}
+
+.auth-form-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.auth-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 1.75rem;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1.75rem;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+.auth-switch a {
+  font-weight: 600;
+}
+
+@media (min-width: 992px) {
+  .auth-panel {
+    display: block;
+  }
+
+  .auth-form-card .mobile-brand {
+    display: none;
+  }
+}
+
+/* ==========================================================
+   Dashboard
+   ========================================================== */
+.app-navbar {
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+}
+
+.app-navbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--navy);
+}
+
+.app-navbar .brand .bi {
+  color: var(--primary);
+  font-size: 1.4rem;
+}
+
+.dashboard-hero {
+  padding: 2.5rem 0 1.5rem;
+}
+
+.dashboard-hero .welcome {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+}
+
+.dashboard-hero h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0;
+}
+
+/* ----------------------------------------------------------
+   Note cards
+   ---------------------------------------------------------- */
+.note-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: transparent;
+}
+
+.note-card .note-content {
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  flex: 1;
+  margin-bottom: 1.1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.note-card .note-meta {
+  border-top: 1px solid var(--border);
+  padding-top: 0.85rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.note-card .note-meta div + div {
+  margin-top: 0.2rem;
+}
+
+.note-card .note-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* ----------------------------------------------------------
+   Empty state
+   ---------------------------------------------------------- */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  color: var(--text-muted);
+}
+
+.empty-state .empty-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.empty-state h3 {
+  color: var(--navy);
+  font-size: 1.25rem;
+}
+
+/* ==========================================================
+   Edit note page
+   ========================================================== */
+.edit-note-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+}
+
+.edit-note-card {
+  width: 100%;
+  max-width: 560px;
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.25rem;
+}
+
+.edit-note-card .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+}
+
+.edit-note-card .back-link:hover {
+  color: var(--primary);
+}
+
+.edit-note-card textarea {
+  min-height: 220px;
+  resize: vertical;
+}
+
+/* ==========================================================
+   New Note modal
+   ========================================================== */
+.modal-content {
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 1.75rem 1.1rem;
+}
+
+.modal-body {
+  padding: 1.5rem 1.75rem;
+}
+
+.modal-footer {
+  border-top: none;
+  padding: 0 1.75rem 1.75rem;
+}
+
+.modal-title {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+/* ==========================================================
+   Motion & accessibility
+   ========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}

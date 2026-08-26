@@ -1,0 +1,69 @@
+- name: Check if control plane is already initialized
+  stat:
+    path: /etc/kubernetes/admin.conf
+  register: kubeadm_init_check
+
+- name: Initialize Kubernetes control plane
+  command: >
+    kubeadm init
+    --apiserver-advertise-address={{ ansible_default_ipv4.address }}
+    --pod-network-cidr=10.244.0.0/16
+  when: not kubeadm_init_check.stat.exists
+  register: kubeadm_init_output
+
+- name: Save kubeadm init output for reference
+  copy:
+    content: "{{ kubeadm_init_output.stdout }}"
+    dest: /root/kubeadm-init-output.txt
+  when: kubeadm_init_output.changed
+
+- name: Create .kube directory for ubuntu user
+  file:
+    path: /home/ubuntu/.kube
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+
+- name: Copy admin.conf to ubuntu user's kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ubuntu/.kube/config
+    remote_src: true
+    owner: ubuntu
+    group: ubuntu
+    mode: '0600'
+
+- name: Check if Flannel is already deployed
+  become_user: ubuntu
+  environment:
+    KUBECONFIG: /home/ubuntu/.kube/config
+  command: kubectl get daemonset kube-flannel-ds -n kube-flannel
+  register: flannel_check
+  failed_when: false
+  changed_when: false
+
+- name: Apply Flannel CNI manifest
+  become_user: ubuntu
+  environment:
+    KUBECONFIG: /home/ubuntu/.kube/config
+  command: >
+    kubectl apply -f
+    https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+  when: flannel_check.rc != 0
+
+- name: Generate a fresh worker join command
+  command: kubeadm token create --print-join-command
+  register: kubeadm_join_command
+
+- name: Save join command locally on control node
+  copy:
+    content: "{{ kubeadm_join_command.stdout }}"
+    dest: /tmp/kubeadm_join_command.sh
+    mode: '0644'
+
+- name: Fetch join command to the Ansible control machine
+  fetch:
+    src: /tmp/kubeadm_join_command.sh
+    dest: /tmp/kubeadm_join_command.sh
+    flat: true

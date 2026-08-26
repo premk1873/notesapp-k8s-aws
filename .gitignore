@@ -1,0 +1,24 @@
+# Node
+node_modules/
+.env
+.env.local
+
+# Terraform — these contain real secrets and machine-specific state
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/terraform.tfvars
+terraform/*.tfplan
+# .terraform.lock.hcl is safe and SHOULD be committed — don't ignore it
+
+# Kubernetes — generated secret manifest, contains base64 (NOT encrypted) credentials
+k8s/secret.yaml
+ansible/secret.yaml
+
+# SSH keys, if ever copied into the project by mistake
+*.pem
+cloudnotes-key*
+
+# OS/editor noise
+.DS_Store
+.vscode/
