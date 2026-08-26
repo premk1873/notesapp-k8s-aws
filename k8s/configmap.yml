@@ -4,7 +4,8 @@ metadata:
   name: cloudnotes-config
   namespace: cloudnotes
 data:
-  DB_HOST: "cloudnotes-db.c6306qmk6dqq.us-east-1.rds.amazonaws.com"
+  DB_HOST: RDS-endpoint
   DB_PORT: "3306"
+  DB_USER: prem
   DB_NAME: "cloudnotes_db"
   PORT: "3000"
