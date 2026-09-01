@@ -1,4 +1,4 @@
-name: build, test and push
+name: build, test, push and deploy.
 
 on: 
   push:
