@@ -25,3 +25,17 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/cloudnotes-app:${{ github.sha }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build-test-push]
+
+    steps:
+      - name: SSH and deploy
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            kubectl set image deployment/cloudnotes cloudnotes=premkarad18/cloudnotes-app:${{ github.sha }} -n cloudnotes
+            kubectl rollout status deployment/cloudnotes -n cloudnotes
